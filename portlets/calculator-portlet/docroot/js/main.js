@@ -67,7 +67,6 @@ AUI().ready('event-delegate', 'event-key', 'event', function(A) {
 	function selectOperation(val){		
 		if(currentOP !== '' && !resetDisplay){			
 			number2 = display.value;
-			//console.log(number1, currentOP, number2);
 			
 			var result = evalOperation(number1, currentOP, number2);
 			if(result !== ERROR_MSG){
@@ -131,8 +130,7 @@ AUI().ready('event-delegate', 'event-key', 'event', function(A) {
 	function processResult(){	
 		resetDisplay = resultProcessed = true;
 		
-		var result = evalOperation(number1, currentOP, number2);
-		//console.log(number1 + currentOP + number2);	
+		var result = evalOperation(number1, currentOP, number2);	
 		
 		if(result !== ERROR_MSG){		
 			display.value = number1 = result;
@@ -206,7 +204,6 @@ AUI().ready('event-delegate', 'event-key', 'event', function(A) {
 				result = eval(n1.replace(/,/g , '') + op + n2.replace(/,/g , '')).toString();
 			}catch(err){
 				reset();
-				console.log(err);
 			}
 			
 			if(result.length > DISPLAY_LENGTH){
@@ -239,8 +236,7 @@ AUI().ready('event-delegate', 'event-key', 'event', function(A) {
 	
 	function checkKey(e) {
 	    e = e || window.event;
-	
-	    //console.log(e.keyCode);
+	    var OPERATION_KEY_CODE = [8, 13, 27, 48, 56, 96, 105, 106, 107, 109, 110, 111, 190, 191];
 	    if(!(e.metaKey || e.ctrlKey)){
 	    	e.preventDefault();
 	    }
@@ -249,36 +245,36 @@ AUI().ready('event-delegate', 'event-key', 'event', function(A) {
 	    	if(e.keyCode === plus_equalKC){
 	    		selectOperation(OPERATIONS.ADDITION.code);
 	    	}
-	    	else if(e.keyCode === 56){
+	    	else if(e.keyCode === OPERATION_KEY_CODE[4]){
 	    		selectOperation(OPERATIONS.MULTIPLICATION.code);
 	    	}
 	    }
 	    else if (~numberCodes.indexOf(e.keyCode)) {
 	    	var key = e.keyCode;
-	        processNumber(String.fromCharCode((96 <= key && key <= 105) ? key - 48 : key));
+	        processNumber(String.fromCharCode((OPERATION_KEY_CODE[5] <= key && key <= OPERATION_KEY_CODE[6]) ? key - OPERATION_KEY_CODE[3] : key));
 	    }
-	    else if(e.keyCode === 27){
+	    else if(e.keyCode === OPERATION_KEY_CODE[2]){
 	    	reset();
 	    }
-	    else if(e.keyCode === 190 || e.keyCode === 110){
+	    else if(e.keyCode === OPERATION_KEY_CODE[12] || e.keyCode === OPERATION_KEY_CODE[10]){
 	    	processDecimal();
 	    }
-	    else if(e.keyCode === plus_equalKC || e.keyCode === 13){
+	    else if(e.keyCode === plus_equalKC || e.keyCode === OPERATION_KEY_CODE[1]){
 	    	processResult();
 	    }
-		else if(e.keyCode === minusKC || e.keyCode === 109){
+		else if(e.keyCode === minusKC || e.keyCode === OPERATION_KEY_CODE[9]){
 			selectOperation(OPERATIONS.SUBSTRACTION.code);
 	    }
-		else if(e.keyCode === 191 || e.keyCode === 111){
+		else if(e.keyCode === OPERATION_KEY_CODE[13] || e.keyCode === OPERATION_KEY_CODE[111]){
 			selectOperation(OPERATIONS.DIVISION.code);
 		}
-	    else if(e.keyCode === 107){
+	    else if(e.keyCode === OPERATION_KEY_CODE[8]){
 			selectOperation(OPERATIONS.ADDITION.code);
 	    }
-		else if(e.keyCode === 106){
+		else if(e.keyCode === OPERATION_KEY_CODE[7]){
 			selectOperation(OPERATIONS.MULTIPLICATION.code);
 		}
-		else if(e.keyCode === 8){
+		else if(e.keyCode === OPERATION_KEY_CODE[0]){
 			deleteNumber();
 		}
 	    
