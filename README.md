@@ -1,4 +1,6 @@
-calculator-portlet
+Calculator Portlet
 ==================
 
-Liferay Calculator Portlet with the basic math and memory functions.
+Calculator with the basic math and memory functions.
+
+See all the documentation in this [wiki](http://wiki.rivetlogic.com/display/LRA/Calculator).
